@@ -46,6 +46,16 @@ button {
   cursor: pointer;
 }
 
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  margin-right: 1150px;
+}
+
 table {
   margin: 0 auto;
   border-collapse: collapse;

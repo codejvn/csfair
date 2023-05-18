@@ -68,7 +68,7 @@ function BookList({ books, borrowBook, returnBook, deleteBook }) {
   return (
     <div>
       <h2 style={bookListStyle}>Book List</h2>
-      <p>Total Books: {books.length}</p>
+      <p style={{textAlign: 'center'}}>Total Books: {books.length}</p>
       <table>
         <thead>
           <tr>
@@ -104,10 +104,15 @@ function BookList({ books, borrowBook, returnBook, deleteBook }) {
   );
 }
 function SideImages() {
-  return (<div className='imagescontainer'>
-    <img src={require('./Assets/books.jpg')} alt="Books!" style={{width: '400px', height: '200', alignContent: 'flex-start'}}/>
-    <img src={require('./Assets/trees.jpg')} alt="Trees!" style={{width: '400px', height: '200', alignContent: 'flex-end'}}/>
-  </div>);
+  return (<>
+    <div className='column'>
+    <img src={require('./Assets/books.jpg')} alt="Books!" style={{width: '400px', height: '200px', alignContent: 'flex-start'}}/>
+    </div>
+    <div className='column'>
+    <img src={require('./Assets/trees.jpg')} alt="Trees!" style={{width: '400px', height: '200px', alignContent: 'flex-end'}}/>
+    </div>
+    </>
+);
 }
 
 function App() {
@@ -149,9 +154,10 @@ function App() {
   };
 
   return (
-    
-    <div>
+    <>
+    <div className='row'>
       <SideImages/>
+    </div>
     <div>
       <BookForm addBook={addBook} />
       <BookList
@@ -161,8 +167,7 @@ function App() {
         deleteBook={deleteBook}
       />
     </div>
-    </div>
-
+    </>
   );
 }
 const bookList = {
