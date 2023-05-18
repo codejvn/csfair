@@ -103,6 +103,12 @@ function BookList({ books, borrowBook, returnBook, deleteBook }) {
     </div>
   );
 }
+function SideImages() {
+  return (<div className='imagescontainer'>
+    <img src={require('./Assets/books.jpg')} alt="Books!" style={{width: '400px', height: '200', alignContent: 'flex-start'}}/>
+    <img src={require('./Assets/trees.jpg')} alt="Trees!" style={{width: '400px', height: '200', alignContent: 'flex-end'}}/>
+  </div>);
+}
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -143,6 +149,9 @@ function App() {
   };
 
   return (
+    
+    <div>
+      <SideImages/>
     <div>
       <BookForm addBook={addBook} />
       <BookList
@@ -152,7 +161,12 @@ function App() {
         deleteBook={deleteBook}
       />
     </div>
+    </div>
+
   );
+}
+const bookList = {
+  textAlign: 'center,'
 }
 
 export default App;

@@ -29,6 +29,14 @@ input {
   margin: 5px;
 }
 
+.imagescontainer{
+  display: flex;
+}
+/* .container {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+} */
 
 button {
   background-color: #007bff;
