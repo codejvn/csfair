@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 
+const bookListStyle = {
+  textAlign: 'center',
+};
+
 function BookForm({ addBook }) {
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
@@ -13,6 +17,8 @@ function BookForm({ addBook }) {
     setTitle('');
     setAuthor('');
   };
+
+  const isFormEmpty = id === '' || title === '' || author === '';
 
   return (
     <form onSubmit={handleSubmit}>
@@ -47,19 +53,22 @@ function BookForm({ addBook }) {
           required
         />
       </div>
-      <button type="submit">Add Book</button>
+      <button type="submit" disabled={isFormEmpty}>
+        Add Book
+      </button>
     </form>
   );
 }
 
-function BookList({ books, borrowBook, returnBook }) {
+function BookList({ books, borrowBook, returnBook, deleteBook }) {
   if (books.length === 0) {
     return <p>No books found.</p>;
   }
 
   return (
     <div>
-      <h2 style={bookList}>Book List</h2>
+      <h2 style={bookListStyle}>Book List</h2>
+      <p>Total Books: {books.length}</p>
       <table>
         <thead>
           <tr>
@@ -72,14 +81,17 @@ function BookList({ books, borrowBook, returnBook }) {
         </thead>
         <tbody>
           {books.map((book) => (
-            <tr key={book.id}>
+            <tr key={book.id} className={book.available ? '' : 'unavailable'}>
               <td>{book.id}</td>
               <td>{book.title}</td>
               <td>{book.author}</td>
               <td>{book.available ? 'Yes' : 'No'}</td>
               <td>
                 {book.available ? (
-                  <button onClick={() => borrowBook(book.id)}>Borrow</button>
+                  <>
+                    <button onClick={() => borrowBook(book.id)}>Borrow</button>
+                    <button onClick={() => deleteBook(book.id)}>Delete</button>
+                  </>
                 ) : (
                   <button onClick={() => returnBook(book.id)}>Return</button>
                 )}
@@ -125,14 +137,22 @@ function App() {
     setBooks(updatedBooks);
   };
 
+  const deleteBook = (id) => {
+    const updatedBooks = books.filter((book) => book.id !== id);
+    setBooks(updatedBooks);
+  };
+
   return (
     <div>
       <BookForm addBook={addBook} />
-      <BookList books={books} borrowBook={borrowBook} returnBook={returnBook}/>
+      <BookList
+        books={books}
+        borrowBook={borrowBook}
+        returnBook={returnBook}
+        deleteBook={deleteBook}
+      />
     </div>
   );
 }
-const bookList = {
-  textAlign: 'center,'
-}
+
 export default App;
